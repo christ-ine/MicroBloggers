@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef } from 'react'
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { Button, Card, Form, Grid, Icon, Image, Label } from 'semantic-ui-react'
+import { Button, Card, Form, Grid, Icon, Image, Label, Popup } from 'semantic-ui-react'
 import moment from 'moment'
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton'
@@ -64,7 +64,11 @@ const SinglePost = (props) => {
                             <hr/>
                             <Card.Content extra>
                                 <LikeButton user={user} post={{ id, likeCount, likes}} />
-                                <Button 
+                                <Popup
+                                    content="Comments"
+                                    inverted
+                                    trigger={
+                                        <Button 
                                     as="div"
                                     labelPosition="right"
                                     onClick={() => console.log('Comment on post')}
@@ -76,6 +80,8 @@ const SinglePost = (props) => {
                                         {commentCount}
                                     </Label>
                                 </Button>
+                                    }
+                                />
                                 {user && user.username === username && (
                                     <DeleteButton postId={id} callback={deletePostCallback}/>
                                 )}
